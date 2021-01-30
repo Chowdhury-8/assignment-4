@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+        <div class="booking-form">
+            <h3>Booking Flights</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                        <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($<span id="class-total">150</span>)</label>
+                    <input id="class-count" class="inp-style inp-width" type="number" name="" value="1">
+                </div>
+                <div class="plus-minus-btn">
+                    <p> <span id="first-class-increase"> +</span> <span id="first-class-decrease">-</span></p>
+                </div>
+            </div>
+
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($ <span id="economy-total">100</span> )</label>
+                    <input id="economy-count" class="inp-style inp-width" type="number" name="" value="1">
+                </div>
+                <div class="plus-minus-btn">
+                    <p> <span id="economy-increase">+</span> <span id="economy-decrease">-</span> </p>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p> $<span  id="total-price">000</span></p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p>$<span id="tax-amount">00</span></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p>$<span id="final-cost">00</span></p>
+                    </div>
+                </div>
+            </div>
+            <button id="booking" class="btn-style">Book Now</button>
+        </div>
+
+        <div id="goHide" class="booking-content">
+            <h1>discover <br> around the world</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias
+                veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise
+                voluptatibus quam</p>
+        </div>
+        <div id="confirmation">
+            <h5>Your ticket is Booked.</h5>
+            <h3>Welcome to Explore...</h3>
+        </div>
+        </section>
+
+        <!--Thank You-->
+
+        <script>
+            document.getElementById('first-class-increase').addEventListener('click', function () {
+                handleClassChange('class', true);
+
+            })
+            document.getElementById('first-class-decrease').addEventListener('click', function () {
+                handleClassChange('class', false);
+            })
+
+            document.getElementById('economy-increase').addEventListener('click', function () {
+                handleClassChange('economy', true);
+            })
+            document.getElementById('economy-decrease').addEventListener('click', function () {
+                handleClassChange('economy', false);
+            })
+
+            function handleClassChange(ticket, isIncrease) {
+                let ticketInput = document.getElementById(ticket + '-count');
+                let ticketCount = parseInt(ticketInput.value);
+
+                let ticketNewCount = ticketCount;
+                if (isIncrease == true) {
+                    ticketNewCount = ticketCount + 1;
+                }
+                if (isIncrease == false && ticketCount > 0) {
+                    ticketNewCount = ticketCount - 1;
+                }
+                ticketInput.value = ticketNewCount;
+
+                let ticketTotal = 0;
+                if (ticket == 'class') {
+                    ticketTotal = ticketNewCount * 150;
+                }
+                if (ticket == 'economy') {
+                    ticketTotal = ticketNewCount * 100;
+                }
+                document.getElementById(ticket + '-total').innerText = ticketTotal;
+                calculateTotal();
+            }
+            function calculateTotal() {
+                let classInput = document.getElementById('class-count');
+                let classCount = parseInt(classInput.value);
+
+
+
+                let economyInput = document.getElementById('economy-count');
+                let economyCount = parseInt(economyInput.value);
+
+                let totalPrice = classCount * 150 + economyCount * 100;
+                document.getElementById('total-price').innerText = totalPrice;
+
+                let tax = totalPrice * 0.1;
+                document.getElementById('tax-amount').innerText = tax;
+
+                let finalCost = totalPrice + tax;
+                document.getElementById('final-cost').innerText = finalCost;
+
+            }
+                document.getElementById('booking').addEventListener('click', function () {
+                document.getElementById('goHide').style.display = 'none';
+
+                document.getElementById('confirmation').style.display = 'block';
+            })
+
+
+        </script>
+</body>
+
+</html>
